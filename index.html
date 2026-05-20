@@ -4364,6 +4364,7 @@ function impBuildStep2() {
 function impParseDate(str) {
   if (!str) return null;
   str = String(str).trim();
+  str = str.replace(/[T\s]+\d{1,2}:\d{2}(:\d{2})?(\.\d+)?(Z|[+-]\d{2}:?\d{2})?$/, ''); // strip time component (ex: "2026-04-30T16:35:25+02:00" → "2026-04-30")
   if (/^\d{4}-\d{2}-\d{2}$/.test(str)) return str;
   var m = str.match(/^(\d{1,2})[\/\.\-](\d{1,2})[\/\.\-](\d{2,4})$/);
   if (m) { var y = m[3]; if (y.length === 2) y = (parseInt(y) > 50 ? '19' : '20') + y; return y + '-' + m[2].padStart(2,'0') + '-' + m[1].padStart(2,'0'); }
