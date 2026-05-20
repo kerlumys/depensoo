@@ -1,0 +1,19 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Logo Dépensoo</title>
+<desc>Icône portefeuille avec cartes et flèche de croissance</desc>
+<rect width="1024" height="1024" fill="#5C7A6E" rx="120"/>
+<g fill="none" stroke="white" stroke-width="42" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M 180 558 L 180 800 Q 180 875 255 875 L 800 875 Q 860 875 860 815 L 860 558 Q 860 498 800 498 L 240 498 Q 180 498 180 558 Z"/>
+  <path d="M 182 542 Q 178 407 278 362"/>
+  <path d="M 264 498 L 181 264"/>
+  <path d="M 362 498 L 275 258"/>
+  <path d="M 181 264 L 275 258"/>
+  <path d="M 395 498 L 329 256"/>
+  <path d="M 275 258 L 329 256"/>
+  <path d="M 437 218 Q 542 120 596 256 Q 626 346 558 408 Q 498 452 422 422"/>
+  <line x1="572" y1="240" x2="708" y2="136"/>
+  <polyline points="663,123 708,136 694,181"/>
+  <rect x="710" y="640" width="166" height="108" rx="28"/>
+  <circle cx="793" cy="694" r="27"/>
+</g>
+</svg>
