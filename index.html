@@ -440,6 +440,9 @@ body.dark .mobile-dock {
   .mobile-dock.hidden { display: none !important; }
   /* Padding bas du contenu principal pour ne pas être masqué par le dock */
   .main { padding-bottom: 110px !important; }
+  /* Supprime le scroll interne + min-height forcé pour éviter l'espace blanc sous le contenu */
+  .app { min-height: unset !important; height: auto !important; }
+  .main { overflow-y: unset !important; }
 }
 
 /* ── ÉCRAN SETUP (premier lancement) ── */
@@ -710,7 +713,7 @@ body.dark .fc{background:#2A5248;}
 
 <!-- ECRAN DE VERROUILLAGE — affiché à chaque ouverture -->
 <div class="screen hidden" id="screen-lock">
-  <div class="screen-logo">Flot</div>
+  <div class="screen-logo">Dépensoo</div>
   <div class="screen-sub">Budget local · privé</div>
   <div class="screen-card" style="max-width:380px;padding:28px 32px">
     <div class="screen-title">Déverrouiller</div>
@@ -814,7 +817,7 @@ body.dark .fc{background:#2A5248;}
 
     <!-- Logo -->
     <div style="text-align:center;margin-bottom:24px;padding-top:8px">
-      <div style="font-family:'Lora',serif;font-size:34px;color:var(--sage)">Flot</div>
+      <div style="font-family:'Lora',serif;font-size:34px;color:var(--sage)">Dépensoo</div>
       <div style="font-size:12px;color:var(--ink2);margin-top:3px;letter-spacing:.3px">Budget local · chiffré · privé</div>
     </div>
 
@@ -876,7 +879,7 @@ body.dark .fc{background:#2A5248;}
 
       <!-- CGU — texte lisible avant acceptation (art. 4.11 RGPD) -->
       <div id="ob-cgu-version-label" style="font-size:10px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Conditions Générales d'Utilisation — v1.4</div>
-      <!-- CGU Art. 1-15 — synchronisé avec flot-mobile/assets/index.html -->
+      <!-- CGU Art. 1-15 — synchronisé avec Dépensoo/assets/index.html -->
       <div class="cgu-scroll">
         <h4>Art. 1 — Objet</h4>
         <p>Les présentes CGU régissent l'utilisation de l'application <strong>Dépensoo</strong>, outil de gestion budgétaire personnelle fonctionnant exclusivement en local sur votre appareil. Aucune donnée n'est transmise à un serveur externe.</p>
@@ -948,7 +951,7 @@ body.dark .fc{background:#2A5248;}
     <div id="setup-panel-import" style="display:none;background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:22px 20px;box-shadow:var(--shm)">
       <div style="font-size:17px;font-weight:700;color:var(--ink);margin-bottom:6px">Restaurer une sauvegarde</div>
       <div style="font-size:13px;color:var(--ink2);margin-bottom:16px;line-height:1.6">
-        Importez un fichier <code style="background:var(--border);padding:1px 5px;border-radius:3px;font-size:11px">.json</code> exporté depuis Flot. Son mot de passe deviendra votre mot de passe d'accès.
+        Importez un fichier <code style="background:var(--border);padding:1px 5px;border-radius:3px;font-size:11px">.json</code> exporté depuis Dépensoo. Son mot de passe deviendra votre mot de passe d'accès.
       </div>
 
       <!-- Fichier -->
@@ -1031,7 +1034,7 @@ body.dark .fc{background:#2A5248;}
 <div class="app hidden" id="app">
 <aside class="sidebar">
   <div class="sb-brand">
-    <div class="sb-logo">Flot</div>
+    <div class="sb-logo">Dépensoo</div>
     <div class="sb-tag">Budget local · chiffré · privé</div>
   </div>
   <div class="sb-income" id="sb-income-widget" onclick="toggleIncomePanel()" style="cursor:pointer;user-select:none" title="Cliquer pour voir l'historique">
@@ -1093,10 +1096,10 @@ body.dark .fc{background:#2A5248;}
     </button>
   </div>
   <div style="padding:10px 16px;border-top:1px solid var(--border)">
-    <a href="https://buymeacoffee.com/votre-profil" target="_blank" rel="noopener noreferrer" title="Lien externe — Buy Me a Coffee"
+    <a href="https://fr.tipeee.com/depensoo/" target="_blank" rel="noopener noreferrer" title="Lien externe — Tipeee"
       style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:9px;background:#FFDD00;border-radius:var(--rsm);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;color:#000;text-decoration:none;transition:opacity .15s"
       onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
-      ☕ Soutenir Flot — Don libre
+      ☕ Soutenir Dépensoo — Don libre
     </a>
     <div style="font-size:10px;color:var(--ink3);text-align:center;margin-top:5px">100% gratuit · Don facultatif</div>
     <div class="sb-util-row">
@@ -1159,7 +1162,7 @@ if (!CRYPTO_OK) {
       '<div style="font-size:48px;margin-bottom:16px">🔒</div>' +
       '<div style="font-size:20px;font-weight:700;color:#2D3748;margin-bottom:12px">Chiffrement indisponible</div>' +
       '<div style="font-size:14px;color:#718096;max-width:400px;line-height:1.7;margin-bottom:20px">' +
-      'Flot nécessite un navigateur moderne et un contexte sécurisé (HTTPS ou localhost) pour protéger vos données financières.<br><br>' +
+      'Dépensoo nécessite un navigateur moderne et un contexte sécurisé (HTTPS ou localhost) pour protéger vos données financières.<br><br>' +
       '<strong>Solutions :</strong><br>' +
       '• Ouvrez ce fichier via un serveur local<br>' +
       '• Utilisez Chrome, Firefox ou Safari à jour<br>' +
@@ -1786,7 +1789,7 @@ function expCSV(){
     rows.push([t.date,t.name,t.type==='income'?'Revenu':(b?b.lbl:'Autre'),t.type==='income'?'Revenu':'Dépense',t.amount.toString().replace('.',',')]);
   });
   const csv=rows.map(function(r){return r.map(function(v){return '"'+String(v).replace(/"/g,'""')+'"';}).join(';');}).join('\n');
-  dl('flot_export.csv','\uFEFF'+csv,'text/csv;charset=utf-8');toast('CSV exporté ✓');
+  dl('depensoo_export.csv','\uFEFF'+csv,'text/csv;charset=utf-8');toast('CSV exporté ✓');
 }
 function openExportModal(){document.getElementById('modal-export').classList.remove('hidden');document.getElementById('exp-pwd').value='';document.getElementById('exp-hint').textContent='';setTimeout(function(){document.getElementById('exp-pwd').focus();},100);}
 function closeExportModal(){document.getElementById('modal-export').classList.add('hidden');}
@@ -1797,7 +1800,7 @@ async function doExport(){
   try{
     const payload={v:2,exported:new Date().toISOString(),algo:'AES-GCM-256',data:S};
     const enc=await cryptEncrypt(payload,pwd);
-    dl('flot_backup_chiffre.json',JSON.stringify({v:2,enc:enc,note:'Chiffré avec Flot. Nécessite votre mot de passe pour déchiffrer.'},null,2),'application/json');
+    dl('depensoo_backup_chiffre.json',JSON.stringify({v:2,enc:enc,note:'Chiffré avec Dépensoo. Nécessite votre mot de passe pour déchiffrer.'},null,2),'application/json');
     closeExportModal();toast('Sauvegarde chiffrée exportée ✓');
   }catch(e){document.getElementById('exp-hint').textContent='Erreur : '+e.message;}
 }
@@ -1967,7 +1970,7 @@ function rPrivacy(){
     '<li><strong>Art. 13 :</strong> Informations fournies ici-même à l\'installation (transparence)</li>' +
     '<li><strong>Responsable de traitement :</strong> Vous-même — données exclusivement locales</li>' +
     '<li><strong>Durée de conservation :</strong> Jusqu\'à suppression par l\'utilisateur</li>' +
-    '<li><strong>Transferts hors UE :</strong> Aucun · <strong>Sous-traitants :</strong> Aucun</li>' +
+    '<li><strong>Transferts hors UE :</strong> Aucun · <strong>Sous-traitants :</strong> Aucun — données exclusivement locales. Hébergeur de la politique de confidentialité publique : GitHub Pages (GitHub Inc., San Francisco, USA) — aucune donnée personnelle de l'application ne lui est transmise.</li>' +
     '</ul></div>' +
     '<div class="priv-block"><h3>Registre des traitements (art. 30 RGPD)</h3>' +
     '<div style="overflow-x:auto">' +
@@ -2011,7 +2014,7 @@ function rPrivacy(){
     '<li><strong>Protection brute-force :</strong> après 5 tentatives de mot de passe incorrectes consécutives, toutes les données sont automatiquement et définitivement supprimées de l\'appareil</li>' +
     '<li><strong>Verrouillage automatique :</strong> après 15 minutes d\'inactivité, l\'application se verrouille et redemande le mot de passe</li>' +
     '</ul></div>' +
-    '<div class="priv-block"><h3>Cookies, trackers & stockage local</h3>' +
+    '<div class="priv-block"><h3>Stockage local technique — aucun cookie ni tracker</h3>' +
     '<div class="priv-tags"><span class="ptag ptag-no">✗ Google Analytics</span><span class="ptag ptag-no">✗ Facebook Pixel</span>' +
     '<span class="ptag ptag-no">✗ Cookies tiers</span><span class="ptag ptag-no">✗ Fingerprinting</span>' +
     '<span class="ptag ptag-ok">✓ Zéro tracker — garanti</span></div>' +
@@ -2028,6 +2031,8 @@ function rPrivacy(){
     '<li><strong>Traceurs de personnalisation de l\'interface</strong> — devise, préférences d\'affichage (art. 5, alinéa 4) ;</li>' +
     '<li><strong>Traceurs conservant le choix de consentement</strong> — date et enregistrement du consentement RGPD (art. 5, alinéa 1).</li>' +
     '</ul></div>' +
+    '<div class="priv-block"><h3>Liens vers des sites tiers</h3>' +
+    '<p>Les documents juridiques de l\'application contiennent des liens vers des sites tiers indépendants : <strong>Légifrance</strong> (legifrance.gouv.fr), <strong>CNIL</strong> (cnil.fr), <strong>plateforme ODR européenne</strong> (ec.europa.eu/consumers/odr) et <strong>Tipeee</strong> (fr.tipeee.com). Ces sites disposent de leurs propres politiques de confidentialité. Dépensoo n\'est pas responsable de leur contenu ni de leurs pratiques de collecte de données. L\'accès à ces liens s\'effectue via le navigateur de votre appareil, hors de l\'application.</p></div>' +
     '<div class="priv-block"><h3>Exercer vos droits RGPD</h3>' +
     '<p><strong>Responsable de traitement :</strong> Vous-même. Dépensoo est une application locale sans serveur. Toutes vos données restent sur votre appareil et aucune n\'est transmise à l\'éditeur. Vous exercez donc vos droits directement depuis l\'interface.</p>' +
     '<div class="set-row"><div><div class="set-il">Accès (art. 15)</div><div class="set-is">Toutes vos données sont visibles dans l\'application</div></div><div class="set-ctrl"><span style="font-size:11px;color:var(--sage)">✓ Garanti</span></div></div>' +
@@ -2037,7 +2042,7 @@ function rPrivacy(){
     '<div class="set-row"><div><div class="set-il">Portabilité (art. 20)</div><div class="set-is">Export JSON chiffré de toutes vos données</div></div><div class="set-ctrl"><button class="bg" onclick="openExportModal()">↓ Exporter</button></div></div>' +
     '<div class="set-row"><div><div class="set-il">Opposition (art. 21)</div><div class="set-is">Sans objet — aucun traitement automatisé à des fins de profilage</div></div><div class="set-ctrl"><span style="font-size:11px;color:var(--sage)">✓ N/A</span></div></div>' +
     '<div class="set-row"><div><div class="set-il">Retrait du consentement (art. 7.3)</div><div class="set-is">Retire votre consentement et réinitialise l\'app — irréversible</div></div><div class="set-ctrl"><button class="bd" onclick="withdrawConsent()">Retirer</button></div></div>' +
-    '<div class="set-row" style="background:var(--sage-l);border:1px solid var(--sage-m);border-radius:8px;margin-top:8px"><div><div class="set-il" style="color:var(--sage)">Réclamation CNIL (art. 13.2.d RGPD)</div><div class="set-is">Vous avez le droit d\'introduire une réclamation auprès de l\'autorité de contrôle compétente si vous estimez que le traitement de vos données porte atteinte à vos droits</div></div><div class="set-ctrl"><span style="font-size:11px;color:var(--sage)">→ cnil.fr</span></div></div>' +
+    '<div class="set-row" style="background:var(--sage-l);border:1px solid var(--sage-m);border-radius:8px;margin-top:8px"><div><div class="set-il" style="color:var(--sage)">Réclamation CNIL (art. 13.2.d RGPD)</div><div class="set-is">Vous avez le droit d\'introduire une réclamation auprès de l\'autorité de contrôle compétente si vous estimez que le traitement de vos données porte atteinte à vos droits</div></div><div class="set-ctrl"><a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer" style="font-size:11px;color:var(--sage);text-decoration:none">→ cnil.fr ↗</a></div></div>' +
     '<p style="font-size:11px;color:var(--ink3);margin-top:8px;line-height:1.7">Autorité de contrôle (art. 13.2.d RGPD) : <strong>CNIL</strong> — Commission Nationale de l\'Informatique et des Libertés — 3 Place de Fontenoy — TSA 80715 — 75334 Paris Cedex 07 — cnil.fr — Tél. 01 53 73 22 22</p></div>' +
     '<div class="priv-block" style="background:var(--sage-l);border:1px solid var(--sage-m)">' +
     '<h3>Suppression des données — Procédure complète</h3>' +
@@ -2060,15 +2065,15 @@ function rPrivacy(){
     '</ul>' +
     '<p style="font-size:12px;color:var(--ink3)">En l\'absence de directives spécifiques, les données resteront chiffrées et inaccessibles sur l\'appareil, jusqu\'à sa réinitialisation ou destruction.</p></div>' +
     '<div class="priv-block"><h3>Don facultatif — traitement des données par un tiers</h3>' +
-    '<p>Dépensoo contient un unique lien externe vers <strong>buymeacoffee.com</strong> (bouton "Soutenir Dépensoo"). Ce lien est <strong>entièrement facultatif</strong> et ne s\'active qu\'après confirmation explicite via une fenêtre d\'avertissement.</p>' +
+    '<p>Dépensoo contient un unique lien externe vers <strong>fr.tipeee.com</strong> (bouton "Soutenir Dépensoo"). Ce lien est <strong>entièrement facultatif</strong> et ne s\'active qu\'après confirmation explicite via une fenêtre d\'avertissement.</p>' +
     '<ul>' +
     '<li>Aucune requête réseau n\'est effectuée automatiquement par Dépensoo</li>' +
     '<li>Une fenêtre d\'avertissement vous informe avant toute redirection vers ce site tiers</li>' +
-    '<li>Buy Me a Coffee est soumis à sa propre politique de confidentialité : les données que vous y saisissez (nom, e-mail, données bancaires) sont traitées par Buymeacoffee, Inc. (USA) selon ses propres règles — indépendamment de Dépensoo</li>' +
-    '<li>Aucune donnée budgétaire, financière ou personnelle issue de Dépensoo n\'est transmise à Buy Me a Coffee</li>' +
-    '<li>L\'éditeur de Dépensoo ne reçoit que le montant et la date du don, via le tableau de bord de Buy Me a Coffee</li>' +
+    '<li>Tipeee est soumis à sa propre politique de confidentialité : les données que vous y saisissez (nom, e-mail, données bancaires) sont traitées par Tipeee SAS (France) selon ses propres règles — indépendamment de Dépensoo</li>' +
+    '<li>Aucune donnée budgétaire, financière ou personnelle issue de Dépensoo n\'est transmise à Tipeee</li>' +
+    '<li>L\'éditeur de Dépensoo ne reçoit que le montant et la date du don, via le tableau de bord de Tipeee</li>' +
     '</ul>' +
-    '<p style="font-size:11px;color:var(--ink3)">Base légale du traitement par Buy Me a Coffee : contrat (exécution du don) — hors champ RGPD côté Dépensoo (aucune donnée personnelle traitée par l\'app).</p></div>' +
+    '<p style="font-size:11px;color:var(--ink3)">Base légale du traitement par Tipeee : contrat (exécution du don) — hors champ RGPD côté Dépensoo (aucune donnée personnelle traitée par l\'app). Tipeee SAS est soumis au droit français et au RGPD (données hébergées en France).</p></div>' +
     '<div class="priv-block"><h3>Documents légaux</h3>' +
     '<div style="display:flex;flex-direction:column;gap:8px">' +
     '<button class="bg" style="text-align:left;padding:10px 14px" onclick="go(\'cgu\')">📄 Conditions Générales d\'Utilisation (CGU v' + CGU_VERSION + ') →</button>' +
@@ -2211,12 +2216,12 @@ function rCGU(){
     '<p>L\'Application est développée avec <strong>Expo / React Native</strong> et <strong>react-native-webview</strong>, distribués sous <strong>licence MIT</strong> (aucune obligation d\'attribution).</p></div>' +
 
     '<div class="priv-block"><h3>6. Don facultatif — informations précontractuelles</h3>' +
-    '<p>Dépensoo propose un bouton de soutien <strong>entièrement facultatif</strong> vers la plateforme tierce <em>Buy Me a Coffee</em> (Buymeacoffee, Inc.).</p>' +
+    '<p>Dépensoo propose un bouton de soutien <strong>entièrement facultatif</strong> vers la plateforme tierce <em>Tipeee</em> (Tipeee SAS).</p>' +
     '<ul>' +
     '<li>Le don est <strong>entièrement bénévole et librement consenti</strong> : il ne confère <em>aucun droit supplémentaire</em> sur l\'application, aucune fonctionnalité exclusive, aucune garantie de mise à jour, aucun engagement de support technique, et n\'est pas constitutif d\'un abonnement ni d\'un acte d\'achat. Aucune contrepartie n\'est promise ni due en échange du don. L\'éditeur ne saurait être considéré comme prestataire de services à l\'égard du donateur du seul fait d\'un soutien financier.</li>' +
-    '<li>La transaction est gérée <strong>exclusivement par Buy Me a Coffee</strong> selon ses propres conditions générales et politique de confidentialité (buymeacoffee.com). L\'éditeur de Dépensoo n\'intervient pas dans le traitement du paiement et ne reçoit aucune donnée bancaire ou personnelle de l\'utilisateur via cette plateforme, au-delà des informations que Buy Me a Coffee lui communique (montant, date).</li>' +
-    '<li><strong>Droit de rétractation :</strong> L\'art. L.221-18 du Code de la consommation (<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000032221367" style="color:var(--sage)">Légifrance ↗</a>) prévoit un délai de rétractation de 14 jours pour les contrats conclus à distance. Toutefois, l\'art. L.221-28 13° (<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000032221387" style="color:var(--sage)">Légifrance ↗</a>) exclut ce droit pour la "fourniture d\'un contenu numérique sans support matériel dont l\'exécution a commencé" avec l\'accord exprès du consommateur. Par ailleurs, un don volontaire sans contrepartie déterminée ne constitue pas un "contrat" au sens du droit de la consommation. La transaction étant gérée par Buy Me a Coffee, tout litige doit être adressé à leur support (buymeacoffee.com/support) ou à votre émetteur de carte bancaire.</li>' +
-    '<li>Aucune donnée budgétaire ou financière issue de Dépensoo n\'est partagée avec Buy Me a Coffee. Le clic sur le bouton de don ouvre le navigateur système de l\'appareil et quitte l\'application.</li>' +
+    '<li>La transaction est gérée <strong>exclusivement par Tipeee</strong> selon ses propres conditions générales et politique de confidentialité (fr.tipeee.com). L\'éditeur de Dépensoo n\'intervient pas dans le traitement du paiement et ne reçoit aucune donnée bancaire ou personnelle de l\'utilisateur via cette plateforme, au-delà des informations que Tipeee lui communique (montant, date).</li>' +
+    '<li><strong>Droit de rétractation :</strong> L\'art. L.221-18 du Code de la consommation (<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000032221367" style="color:var(--sage)">Légifrance ↗</a>) prévoit un délai de rétractation de 14 jours pour les contrats conclus à distance. Toutefois, l\'art. L.221-28 13° (<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000032221387" style="color:var(--sage)">Légifrance ↗</a>) exclut ce droit pour la "fourniture d\'un contenu numérique sans support matériel dont l\'exécution a commencé" avec l\'accord exprès du consommateur. Par ailleurs, un don volontaire sans contrepartie déterminée ne constitue pas un "contrat" au sens du droit de la consommation. La transaction étant gérée par Tipeee, tout litige doit être adressé à leur support (fr.tipeee.com) ou à votre émetteur de carte bancaire.</li>' +
+    '<li>Aucune donnée budgétaire ou financière issue de Dépensoo n\'est partagée avec Tipeee. Le clic sur le bouton de don ouvre le navigateur système de l\'appareil et quitte l\'application.</li>' +
     '</ul></div>' +
 
     '<div class="priv-block"><h3>7. Distribution via le Google Play Store</h3>' +
@@ -2462,7 +2467,7 @@ async function obDoImport() {
   try {
     const text    = await fileEl.files[0].text();
     const wrapper = JSON.parse(text);
-    if (!wrapper.enc) throw new Error('Fichier invalide — ce n\'est pas une sauvegarde Flot.');
+    if (!wrapper.enc) throw new Error('Fichier invalide — ce n\'est pas une sauvegarde Dépensoo.');
     const payload = await cryptDecrypt(wrapper.enc, pwd);
     if (!payload.data || !payload.data.transactions) throw new Error('Mot de passe incorrect ou données corrompues.');
 
@@ -2556,7 +2561,7 @@ async function doImport() {
     const text = await fileEl.files[0].text();
     const wrapper = JSON.parse(text);
 
-    if (!wrapper.enc) throw new Error('Format de fichier invalide — ce n\'est pas une sauvegarde Flot.');
+    if (!wrapper.enc) throw new Error('Format de fichier invalide — ce n\'est pas une sauvegarde Dépensoo.');
 
     const payload = await cryptDecrypt(wrapper.enc, pwd);
 
@@ -2649,7 +2654,7 @@ async function doImport() {
 <div class="modal-bg hidden" id="modal-income-history">
   <div class="modal" style="max-width:460px">
     <h3>💰 Historique des revenus</h3>
-    <p>Enregistrez votre revenu pour chaque mois. Flot l'utilisera automatiquement pour les calculs de ce mois.</p>
+    <p>Enregistrez votre revenu pour chaque mois. Dépensoo l'utilisera automatiquement pour les calculs de ce mois.</p>
     <div id="income-history-list" style="margin-bottom:12px;max-height:260px;overflow-y:auto"></div>
     <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end;padding-top:10px;border-top:1px solid var(--border)">
       <div><label class="form-lbl">Mois</label><input type="month" id="ih-month" style="width:100%;padding:9px 10px;border:1.5px solid var(--border);border-radius:var(--rsm);font-family:'Nunito',sans-serif;font-size:13px;color:var(--ink);outline:none;background:var(--white)"></div>
@@ -2740,7 +2745,7 @@ async function doImport() {
 <div class="modal-bg hidden" id="modal-watch">
   <div class="modal">
     <h3>👁️ Surveiller un poste</h3>
-    <p>Flot cherchera les transactions dont la description contient ce nom et vous alertera si le montant dépasse le seuil.</p>
+    <p>Dépensoo cherchera les transactions dont la description contient ce nom et vous alertera si le montant dépasse le seuil.</p>
     <label class="form-lbl">Nom à surveiller</label>
     <input type="text" id="watch-name" placeholder="ex: Essence, Netflix, Loyer…" style="margin-bottom:8px">
     <label class="form-lbl">Seuil d'alerte</label>
@@ -3372,7 +3377,7 @@ async function setupFinalize() {
   document.getElementById('app').classList.remove('hidden');
   var incEl = document.getElementById('inc-input'); if (incEl) incEl.value = S.income;
   render();
-  toast('✓ Profil créé — bienvenue dans Flot !');
+  toast('✓ Profil créé — bienvenue dans Dépensoo !');
 }
 
 function setupImpFileChange() {
@@ -3400,7 +3405,7 @@ async function setupDoImport() {
   try {
     var text    = await fileEl.files[0].text();
     var wrapper = JSON.parse(text);
-    if (!wrapper.enc) throw new Error('Ce fichier n\'est pas une sauvegarde Flot.');
+    if (!wrapper.enc) throw new Error('Ce fichier n\'est pas une sauvegarde Dépensoo.');
     var payload = await cryptDecrypt(wrapper.enc, pwd);
     if (!payload.data || !payload.data.transactions) throw new Error('Mot de passe incorrect ou données corrompues.');
     var hash = await hashPwd(pwd);
@@ -3486,7 +3491,7 @@ async function fpwdDoImport() {
   try {
     var text    = await fileEl.files[0].text();
     var wrapper = JSON.parse(text);
-    if (!wrapper.enc) throw new Error('Ce fichier n\'est pas une sauvegarde Flot.');
+    if (!wrapper.enc) throw new Error('Ce fichier n\'est pas une sauvegarde Dépensoo.');
     var payload = await cryptDecrypt(wrapper.enc, pwd);
     if (!payload.data || !payload.data.transactions) throw new Error('Mot de passe incorrect ou données corrompues.');
 
@@ -3942,7 +3947,7 @@ function rWatchlist() {
   var empty = !list.length ? '<div class="tx-empty"><div class="tx-empty-ic">👁️</div><div class="tx-empty-txt">Aucun poste surveillé</div></div>' : '';
   return '<div class="ph"><div><div class="ph-title">Veille prix</div><div class="ph-sub">Surveillance de postes récurrents</div></div>' +
     '<button class="bp" onclick="openWatchModal()">+ Surveiller</button></div>' +
-    '<div class="m-intro">Flot détecte automatiquement les transactions correspondant à vos postes surveillés et vous alerte si le seuil est dépassé.</div>' +
+    '<div class="m-intro">Dépensoo détecte automatiquement les transactions correspondant à vos postes surveillés et vous alerte si le seuil est dépassé.</div>' +
     '<div class="set-sec" style="margin-bottom:0"><h3>Postes surveillés</h3>' + (cards||empty) + '</div>';
 }
 function openWatchModal(){
@@ -3974,7 +3979,7 @@ function expPDF(){
     var b=bkts.find(function(x){return x.key===t.cat;}); var isInc=t.type==='income';
     return '<tr><td>'+fmtD(t.date)+'</td><td>'+esc(t.name)+'</td><td>'+(b?esc(b.lbl):isInc?'Revenu':'Autre')+'</td><td style="text-align:right;color:'+(isInc?'#276749':'#C53030')+'">'+(isInc?'+':'-')+fmt(t.amount)+'</td></tr>';
   }).join('');
-  var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Flot — '+mLbl(key)+'</title><style>'+
+  var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Dépensoo — '+mLbl(key)+'</title><style>'+
     'body{font-family:system-ui,sans-serif;color:#2D3748;max-width:700px;margin:0 auto;padding:32px 24px}'+
     'h1{font-family:Georgia,serif;color:#5C7A6E;font-size:28px;margin-bottom:4px}'+
     '.sub{color:#718096;font-size:13px;margin-bottom:28px}'+
@@ -3988,18 +3993,18 @@ function expPDF(){
     'tr:last-child td{border-bottom:none}'+
     '.footer{margin-top:28px;font-size:11px;color:#A0AEC0;border-top:1px solid #E2E8F0;padding-top:12px}'+
     '</style></head><body>'+
-    '<h1>Flot — Rapport mensuel</h1><div class="sub">'+mLbl(key)+' · Généré le '+new Date().toLocaleDateString('fr-FR')+'</div>'+
+    '<h1>Dépensoo — Rapport mensuel</h1><div class="sub">'+mLbl(key)+' · Généré le '+new Date().toLocaleDateString('fr-FR')+'</div>'+
     '<div class="summary">'+
     '<div class="s"><div class="s-lbl">Revenus</div><div class="s-val" style="color:#276749">'+fmt(inc)+'</div></div>'+
     '<div class="s"><div class="s-lbl">Dépenses</div><div class="s-val" style="color:#C53030">'+fmt(out)+'</div></div>'+
     '<div class="s"><div class="s-lbl">Solde</div><div class="s-val" style="color:'+(inc-out>=0?'#276749':'#C53030')+'">'+fmt(inc-out)+'</div></div>'+
     '</div>'+
     '<table><thead><tr><th>Date</th><th>Description</th><th>Catégorie</th><th style="text-align:right">Montant</th></tr></thead><tbody>'+rows+'</tbody></table>'+
-    '<div class="footer">Flot · Budget local chiffré · Aucune donnée transmise · '+new Date().toISOString()+'</div>'+
+    '<div class="footer">Dépensoo · Budget local chiffré · Aucune donnée transmise · '+new Date().toISOString()+'</div>'+
     '</body></html>';
   var w=window.open('','_blank');
   if(w){w.document.write(html);w.document.close();setTimeout(function(){w.print();},400);}
-  else{dl('flot_rapport_'+key+'.html',html,'text/html;charset=utf-8');toast('Rapport HTML téléchargé ✓');}
+  else{dl('depensoo_rapport_'+key+'.html',html,'text/html;charset=utf-8');toast('Rapport HTML téléchargé ✓');}
 }
 
 // Ajouter le bouton PDF dans rSettings + indicateur quota localStorage
