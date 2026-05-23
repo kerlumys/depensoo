@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-title" content="Dépensoo">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Dépensoo — budget sécurisé</title>
 <meta name="description" content="Dépensoo : application de budget personnel locale, chiffrée et privée. Aucune donnée ne quitte votre appareil.">
 <meta name="robots" content="index,follow">
@@ -709,6 +709,10 @@ body.dark .fc{background:#2A5248;}
 .imp-sel-bar a{color:var(--sage);cursor:pointer;text-decoration:underline}
 .imp-chk-row{display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;padding:6px 0}
 .imp-chk-row input{accent-color:var(--sage);width:15px;height:15px;cursor:pointer;flex-shrink:0}
+/* iOS Safari anti-zoom — empêche le zoom automatique sur les champs de saisie */
+input, select, textarea { font-size: 16px !important; }
+/* touch-action pour désactiver le double-tap zoom */
+* { touch-action: manipulation; }
 </style>
 <body>
 
