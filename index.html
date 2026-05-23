@@ -11,6 +11,7 @@
 <title>Dépensoo — budget sécurisé</title>
 <meta name="description" content="Dépensoo : application de budget personnel locale, chiffrée et privée. Aucune donnée ne quitte votre appareil.">
 <meta name="robots" content="index,follow">
+<link rel="manifest" href="./manifest.json">
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -895,8 +896,8 @@ body.dark .fc{background:#2A5248;}
         <p>Le code source et l'interface de l'Application sont la propriété exclusive de l'éditeur, à l'exception des composants tiers distribués sous licence open source (notamment Expo, React Native, react-native-webview). L'utilisateur bénéficie d'un droit d'usage personnel, non transférable et non commercial. Toute tentative de décompilation, de rétro-ingénierie, d'extraction du code source ou de contournement des mécanismes de sécurité de l'Application est strictement interdite.</p>
         <h4>Art. 6 — Données personnelles</h4>
         <p>Toutes les données saisies restent exclusivement sur votre appareil, chiffrées en AES-GCM 256 bits. Aucune collecte, aucun tracking, aucun cookie tiers. Voir la section « Confidentialité & RGPD » de l'app pour le détail complet de vos droits.</p>
-        <h4>Art. 7 — Distribution via le Google Play Store</h4>
-        <p>La relation entre l'utilisateur et le Google Play Store est régie par les conditions générales de Google. L'application respecte les règles de confidentialité du Google Play Store (section Data Safety). Aucune donnée n'est collectée, transmise ou partagée avec des tiers. L'application n'intègre aucun outil de rapport de plantage ni SDK analytique.</p>
+        <h4>Art. 7 — Distribution via le web (Progressive Web App)</h4>
+        <p>Dépensoo est distribuée sous forme de Progressive Web App (PWA) accessible depuis un navigateur, sans intermédiaire de store. Aucune donnée n'est collectée, transmise ou partagée avec des tiers. L'application n'intègre aucun outil de rapport de plantage ni SDK analytique.</p>
         <h4>Art. 8 — Loi Informatique et Libertés / LCEN</h4>
         <p>Dépensoo est éditée dans le respect de la loi n° 2004-575 du 21 juin 2004 (LCEN) et de la loi n° 78-17 du 6 janvier 1978 modifiée (loi Informatique et Libertés). L'autorité de contrôle compétente est la <strong>CNIL</strong> — www.cnil.fr.</p>
         <h4>Art. 9 — Évolution des CGU et notification</h4>
@@ -910,7 +911,7 @@ body.dark .fc{background:#2A5248;}
         <h4>Art. 13 — Divisibilité des clauses</h4>
         <p>Si l'une des dispositions des présentes CGU venait à être déclarée nulle ou inapplicable par une juridiction compétente, les autres dispositions demeureront pleinement en vigueur et continueront à produire leurs effets.</p>
         <h4>Art. 14 — Intégralité des obligations</h4>
-        <p>Les présentes CGU expriment l'intégralité des obligations des parties. Aucune condition générale ou spécifique figurant dans des documents extérieurs, et notamment aucun échange par e-mail, commentaire sur le Play Store ou notification, ne pourra se substituer aux présentes CGU ni créer d'obligations supplémentaires non prévues par celles-ci.</p>
+        <p>Les présentes CGU expriment l'intégralité des obligations des parties. Aucune condition générale ou spécifique figurant dans des documents extérieurs, et notamment aucun échange par e-mail, commentaire ou notification, ne pourra se substituer aux présentes CGU ni créer d'obligations supplémentaires non prévues par celles-ci.</p>
         <h4>Art. 15 — Cession</h4>
         <p>Les présentes CGU peuvent faire l'objet d'une cession totale ou partielle par l'éditeur, notamment en cas de transfert de l'Application à un tiers, sans l'accord préalable de l'utilisateur, dès lors que le cessionnaire maintient au bénéfice de l'utilisateur l'ensemble des droits et obligations prévus aux présentes. L'utilisateur sera informé de toute cession dans les meilleurs délais.</p>
       </div>
@@ -2053,7 +2054,7 @@ function rPrivacy(){
     '<li><strong>Méthode 1 — Depuis l\'app (recommandée) :</strong> Politique de confidentialité → bouton <em>"Tout supprimer"</em> → suppression immédiate et définitive de toutes les données</li>' +
     '<li><strong>Méthode 2 — Désinstallation :</strong> La désinstallation de l\'application via les paramètres Android entraîne la suppression définitive et immédiate de toutes les données stockées localement</li>' +
     '</ul>' +
-    '<p style="font-size:12px;color:var(--ink3)">Conformément aux exigences Google Play, une page web externe explique cette procédure (accessible depuis la fiche Play Store). L\'éditeur ne pouvant agir sur des données qu\'il ne détient pas, cette page guide l\'utilisateur vers la procédure autonome ci-dessus.</p></div>' +
+    '<p style="font-size:12px;color:var(--ink3)">L\'éditeur ne pouvant agir sur des données qu\'il ne détient pas, la suppression s\'effectue exclusivement depuis l\'appareil de l\'utilisateur via les méthodes ci-dessus.</p></div>' +
     '<div class="priv-block"><h3>Décision automatisée (art. 22 RGPD)</h3>' +
     '<p>L\'Application n\'effectue <strong>aucune décision produisant des effets juridiques ou affectant de manière significative l\'utilisateur</strong> de façon automatisée. La catégorisation des transactions budgétaires est réalisée localement, à titre indicatif, sans aucun effet juridique. L\'art. 22 RGPD est donc <strong>sans objet</strong> pour Dépensoo.</p></div>' +
     '<div class="priv-block"><h3>Sort des données après décès (art. 85 loi Informatique et Libertés)</h3>' +
@@ -2092,10 +2093,10 @@ function rMentions(){
 
     '<div class="priv-block" style="border:1px solid var(--sage-m);background:var(--sage-l)">' +
     '<h3 style="color:var(--sage)">💡 Régime légal applicable — Particulier éditant une app mobile</h3>' +
-    '<p style="font-size:12px;color:#276749;line-height:1.8">La loi LCEN (art. 1-1, loi n° 2004-575 du 21 juin 2004 pour la confiance dans l\'économie numérique) s\'applique à tout <em>service de communication au public en ligne</em>, ce qui inclut les applications mobiles distribuées via le Play Store. Toutefois, en tant que particulier éditant à titre non professionnel, vous bénéficiez du <strong>régime d\'anonymat prévu à l\'art. 1-1 II de la LCEN</strong> :</p>' +
+    '<p style="font-size:12px;color:#276749;line-height:1.8">La loi LCEN (art. 1-1, loi n° 2004-575 du 21 juin 2004 pour la confiance dans l\'économie numérique) s\'applique à tout <em>service de communication au public en ligne</em>, ce qui inclut les Progressive Web Apps (PWA) accessibles via un navigateur. Toutefois, en tant que particulier éditant à titre non professionnel, vous bénéficiez du <strong>régime d\'anonymat prévu à l\'art. 1-1 II de la LCEN</strong> :</p>' +
     '<ul style="font-size:12px;color:#276749;line-height:2">' +
     '<li>✓ Vous pouvez ne pas publier votre nom, adresse postale ni téléphone dans l\'application</li>' +
-    '<li>✓ Condition : avoir communiqué votre identité à Google (via votre compte développeur Play Console) — Google est votre hébergeur/diffuseur et est tenu au secret professionnel (art. 226-13 Code pénal)</li>' +
+    '<li>✓ Condition : avoir communiqué votre identité à votre hébergeur web (GitHub, via votre compte GitHub) — GitHub est votre hébergeur et est tenu au secret professionnel (art. 226-13 Code pénal)</li>' +
     '<li>✓ Ce que vous devez rendre public : uniquement un <strong>e-mail de contact</strong> et l\'<strong>URL de votre politique de confidentialité</strong></li>' +
     '<li>✓ Votre <strong>adresse postale n\'est pas requise</strong> publiquement dans ce régime</li>' +
     '</ul></div>' +
@@ -2108,12 +2109,12 @@ function rMentions(){
     '<li><strong>Délai de réponse (art. 12.3 RGPD) :</strong> Toute demande d\'exercice de droits adressée par e-mail recevra une réponse dans un délai d\'<strong>un mois</strong>. L\'Application fonctionnant en mode 100 % local et chiffré, l\'éditeur ne détient aucune de vos données et ne peut agir à votre place — sa réponse vous guidera vers les outils disponibles directement dans l\'Application (accès, effacement, export).</li>' +
     '<li><strong>Politique de confidentialité :</strong> <a href="https://kerlumys.github.io/depensoo-privacy" style="color:var(--sage)">kerlumys.github.io/depensoo-privacy</a></li>' +
     '</ul>' +
-    '<p style="font-size:11px;color:var(--ink3);margin-top:8px;line-height:1.7">Conformément à l\'art. 1-1 de la loi n° 2004-575 (LCEN), l\'édition de l\'application Dépensoo est assurée par un particulier non professionnel sous couvert d\'anonymat légal. L\'application est distribuée via la plateforme Google Play Store (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland).</p></div>' +
+    '<p style="font-size:11px;color:var(--ink3);margin-top:8px;line-height:1.7">Conformément à l\'art. 1-1 de la loi n° 2004-575 (LCEN), l\'édition de l\'application Dépensoo est assurée par un particulier non professionnel sous couvert d\'anonymat légal. L\'application est accessible sous forme de Progressive Web App (PWA) hébergée sur GitHub Pages (GitHub, Inc., San Francisco, USA).</p></div>' +
 
     '<div class="priv-block"><h3>Distribution & hébergement</h3>' +
     '<ul>' +
-    '<li><strong>Google Play Store :</strong> Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irlande (filiale de Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, États-Unis) — <em>play.google.com</em>. La relation contractuelle entre l\'utilisateur et le store est régie par les conditions générales de Google Play. L\'éditeur de Dépensoo n\'intervient pas dans ces transactions.</li>' +
-    '<li><strong>Hébergeur de la politique de confidentialité :</strong> GitHub Pages — GitHub, Inc. (filiale de Microsoft Corporation), 88 Colin P Kelly Jr St, San Francisco, CA 94107, États-Unis — <em>pages.github.com</em>. La page de politique de confidentialité publique (<a href="https://kerlumys.github.io/depensoo-privacy" style="color:var(--sage)">kerlumys.github.io/depensoo-privacy</a>) est hébergée sur cette infrastructure. L\'application elle-même ne fait aucun appel réseau vers ces serveurs.</li>' +
+    '<li><strong>Hébergeur de l\'application (PWA) :</strong> GitHub Pages — GitHub, Inc. (filiale de Microsoft Corporation), 88 Colin P Kelly Jr St, San Francisco, CA 94107, États-Unis — <em>pages.github.com</em>. L\'application est accessible à l\'adresse <a href="https://kerlumys.github.io/depensoo" style="color:var(--sage)">kerlumys.github.io/depensoo</a>. Aucune donnée personnelle de l\'utilisateur n\'est transmise à cet hébergeur — l\'application fonctionne intégralement en local sur l\'appareil.</li>' +
+    '<li><strong>Hébergeur de la politique de confidentialité :</strong> GitHub Pages — GitHub, Inc. (filiale de Microsoft Corporation), 88 Colin P Kelly Jr St, San Francisco, CA 94107, États-Unis — <em>pages.github.com</em>. La politique de confidentialité publique est accessible à l\'adresse <a href="https://kerlumys.github.io/depensoo-privacy" style="color:var(--sage)">kerlumys.github.io/depensoo-privacy</a>.</li>' +
     '</ul></div>' +
 
     '<div class="priv-block"><h3>Propriété intellectuelle</h3>' +
@@ -2177,7 +2178,7 @@ function rCGU(){
 
     '<div class="priv-block"><h3>1. Objet et champ d\'application</h3>' +
     '<p>Les présentes Conditions Générales d\'Utilisation (CGU) régissent l\'utilisation de l\'application <strong>Dépensoo</strong>, outil de gestion budgétaire personnelle fonctionnant entièrement en local sur l\'appareil de l\'utilisateur, sans serveur ni connexion internet obligatoire.</p>' +
-    '<p>Ces CGU s\'appliquent à la version de l\'application distribuée via le <strong>Google Play Store</strong>. Elles sont rédigées conformément au droit français et au règlement (UE) 2016/679 (RGPD).</p>' +
+    '<p>Ces CGU s\'appliquent à la version de l\'application accessible sous forme de <strong>Progressive Web App (PWA)</strong> via un navigateur web. Elles sont rédigées conformément au droit français et au règlement (UE) 2016/679 (RGPD).</p>' +
     '<p>En créant un profil sur Dépensoo, l\'utilisateur reconnaît avoir lu et accepté sans réserve les présentes CGU.</p></div>' +
 
     '<div class="priv-block"><h3>2. Accès, éligibilité et compte</h3>' +
@@ -2225,16 +2226,16 @@ function rCGU(){
     '<li>Aucune donnée budgétaire ou financière issue de Dépensoo n\'est partagée avec Tipeee. Le clic sur le bouton de don ouvre le navigateur système de l\'appareil et quitte l\'application.</li>' +
     '</ul></div>' +
 
-    '<div class="priv-block"><h3>7. Distribution via le Google Play Store</h3>' +
-    '<p>La relation entre l\'utilisateur et le Google Play Store est régie par les conditions générales de Google. En cas de problème lié à la distribution, l\'utilisateur doit s\'adresser directement à Google. L\'éditeur n\'intervient pas dans ces transactions.</p>' +
-    '<p>L\'application respecte les règles de confidentialité du Google Play Store (section Data Safety). Aucune donnée de l\'utilisateur n\'est collectée, transmise ou partagée avec des tiers par l\'application. L\'application n\'intègre aucun outil de rapport de plantage (crash reporter), aucun SDK analytique, aucune bibliothèque de traçage (Firebase, Crashlytics, Sentry, etc.).</p>' +
-    '<p><strong>Suppression des données :</strong> L\'utilisateur peut supprimer l\'intégralité de ses données directement depuis l\'application (bouton "Tout supprimer"). Pour toute demande de suppression par voie externe, contacter l\'éditeur à l\'adresse e-mail indiquée dans la fiche Play Store ou dans les Mentions légales.</p></div>' +
+    '<div class="priv-block"><h3>7. Distribution via le web (Progressive Web App)</h3>' +
+    '<p>Dépensoo est accessible sous forme de Progressive Web App (PWA) hébergée sur GitHub Pages, sans intermédiaire de store. Aucun compte n\'est requis pour y accéder. L\'éditeur est l\'unique responsable de la distribution.</p>' +
+    '<p>Aucune donnée de l\'utilisateur n\'est collectée, transmise ou partagée avec des tiers par l\'application. L\'application n\'intègre aucun outil de rapport de plantage (crash reporter), aucun SDK analytique, aucune bibliothèque de traçage (Firebase, Crashlytics, Sentry, etc.).</p>' +
+    '<p><strong>Suppression des données :</strong> L\'utilisateur peut supprimer l\'intégralité de ses données directement depuis l\'application (bouton "Tout supprimer") ou en supprimant les données du site dans les paramètres de son navigateur. Pour toute demande par voie externe, contacter l\'éditeur à l\'adresse e-mail indiquée dans les Mentions légales.</p></div>' +
 
     '<div class="priv-block"><h3>8. Loi Informatique et Libertés / LCEN</h3>' +
     '<p>Dépensoo est éditée dans le respect de la loi n° 2004-575 du 21 juin 2004 pour la Confiance dans l\'Économie Numérique (LCEN) et de la loi n° 78-17 du 6 janvier 1978 modifiée (loi Informatique et Libertés). L\'autorité de contrôle compétente est la <strong>Commission Nationale de l\'Informatique et des Libertés (CNIL)</strong> — <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer" style="color:var(--sage)">www.cnil.fr ↗</a>.</p></div>' +
 
     '<div class="priv-block"><h3>9. Évolution des CGU et notification</h3>' +
-    '<p>L\'éditeur se réserve le droit de modifier les présentes CGU à tout moment, notamment pour se conformer à des évolutions législatives ou réglementaires. Constitue un changement <strong>substantiel</strong> toute modification affectant les droits RGPD de l\'utilisateur, les conditions d\'accès à l\'Application, l\'étendue des données traitées ou les conditions financières liées à un don — un tel changement requiert un re-consentement explicite au prochain lancement. Constitue un changement <strong>mineur</strong> toute correction rédactionnelle, précision juridique ou mise à jour de référence légale sans incidence sur les droits de l\'utilisateur — un tel changement est réputé accepté tacitement dans un délai de trente (30) jours suivant sa notification, celle-ci s\'entendant de l\'affichage d\'un bandeau informatif au prochain lancement de l\'Application faisant suite à une mise à jour publiée sur le Google Play Store.</p>' +
+    '<p>L\'éditeur se réserve le droit de modifier les présentes CGU à tout moment, notamment pour se conformer à des évolutions législatives ou réglementaires. Constitue un changement <strong>substantiel</strong> toute modification affectant les droits RGPD de l\'utilisateur, les conditions d\'accès à l\'Application, l\'étendue des données traitées ou les conditions financières liées à un don — un tel changement requiert un re-consentement explicite au prochain lancement. Constitue un changement <strong>mineur</strong> toute correction rédactionnelle, précision juridique ou mise à jour de référence légale sans incidence sur les droits de l\'utilisateur — un tel changement est réputé accepté tacitement dans un délai de trente (30) jours suivant sa notification, celle-ci s\'entendant de l\'affichage d\'un bandeau informatif au prochain lancement de l\'Application faisant suite à une mise à jour de la PWA.</p>' +
     '<p>Version en vigueur : <strong>CGU v' + CGU_VERSION + '</strong> — <strong>' + yr + '</strong> · <button class="lnk-btn" onclick="go(\'privacy\')">Voir la politique de confidentialité →</button></p></div>' +
 
     '<div class="priv-block"><h3>10. Médiation et droit applicable</h3>' +
@@ -2251,7 +2252,7 @@ function rCGU(){
     '<p>Si l\'une des dispositions des présentes CGU venait à être déclarée nulle ou inapplicable par une juridiction compétente, les autres dispositions demeureront pleinement en vigueur et continueront à produire leurs effets.</p></div>' +
 
     '<div class="priv-block"><h3>14. Intégralité des obligations</h3>' +
-    '<p>Les présentes CGU expriment l\'intégralité des obligations des parties. Aucune condition générale ou spécifique figurant dans des documents extérieurs, et notamment aucun échange par e-mail, commentaire sur le Play Store ou notification, ne pourra se substituer aux présentes CGU ni créer d\'obligations supplémentaires non prévues par celles-ci.</p></div>' +
+    '<p>Les présentes CGU expriment l\'intégralité des obligations des parties. Aucune condition générale ou spécifique figurant dans des documents extérieurs, et notamment aucun échange par e-mail, commentaire ou notification, ne pourra se substituer aux présentes CGU ni créer d\'obligations supplémentaires non prévues par celles-ci.</p></div>' +
 
     '<div class="priv-block"><h3>15. Cession</h3>' +
     '<p>Les présentes CGU peuvent faire l\'objet d\'une cession totale ou partielle par l\'éditeur, notamment en cas de transfert de l\'Application à un tiers, sans l\'accord préalable de l\'utilisateur, dès lors que le cessionnaire maintient au bénéfice de l\'utilisateur l\'ensemble des droits et obligations prévus aux présentes. L\'utilisateur sera informé de toute cession dans les meilleurs délais.</p></div>';
@@ -4438,6 +4439,16 @@ window.impSelAll           = impSelAll;
 window.impConfirm          = impConfirm;
 
 window.getIncomeForMonth   = getIncomeForMonth;
+</script>
+
+<script>
+// Enregistrement du Service Worker (PWA offline)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .catch(err => console.warn('SW non enregistré :', err));
+  });
+}
 </script>
 </body>
 </html>
