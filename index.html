@@ -890,6 +890,7 @@ input, select, textarea { font-size: 16px !important; }
       <div class="cgu-scroll">
         <h4>Art. 1 — Objet</h4>
         <p>Les présentes CGU régissent l'utilisation de l'application <strong>Dépensoo</strong>, outil de gestion budgétaire personnelle fonctionnant exclusivement en local sur votre appareil. Aucune donnée n'est transmise à un serveur externe.</p>
+        <p style="font-size:12px;background:#FFF9E6;border:1px solid #F6E05E;border-radius:6px;padding:8px 10px;margin-top:6px">⚠️ <strong>Version bêta publique :</strong> Cette version est en cours de test. L'éditeur ne garantit pas l'absence de bugs. Vos retours sont les bienvenus sur Instagram (<a href="https://instagram.com/DEPENSOO" style="color:#5C7A6E">@DEPENSOO</a>) ou TikTok (<a href="https://tiktok.com/@dpensoo" style="color:#5C7A6E">@dpensoo</a>).</p>
         <h4>Art. 2 — Conditions d'accès</h4>
         <p>L'Application est gratuite. Son utilisation est réservée aux personnes physiques d'au moins 16 ans (art. 8 RGPD). En cochant la case ci-dessous, vous confirmez remplir cette condition. L'éditeur ne saurait être tenu responsable en cas de déclaration mensongère sur l'âge. L'accès des mineurs de moins de 16 ans est interdit.</p>
         <p><strong>Protection brute-force :</strong> après 5 saisies consécutives de mot de passe incorrect, toutes les données sont automatiquement et définitivement supprimées de l'appareil. L'application se verrouille automatiquement après 15 minutes d'inactivité.</p>
@@ -1899,7 +1900,14 @@ function rSettings(){
     '<div class="set-row"><div><div class="set-il">Retirer mon consentement</div><div class="set-is">Efface toutes vos données et réinitialise l\'application</div></div><div class="set-ctrl"><button class="bd" onclick="withdrawConsent()">Retirer</button></div></div></div>' +
     '<div class="set-sec"><h3>Zone de danger</h3>' +
     '<div class="set-row"><div><div class="set-il">Effacer les transactions</div><div class="set-is">Irréversible — conserve les réglages</div></div><div class="set-ctrl"><button class="bd" onclick="clearTx()">Effacer</button></div></div>' +
-    '<div class="set-row"><div><div class="set-il">Supprimer toutes les données</div><div class="set-is">Irréversible — remet l\'app à zéro</div></div><div class="set-ctrl"><button class="bd" onclick="nukeAll()">Tout supprimer</button></div></div></div>';
+    '<div class="set-row"><div><div class="set-il">Supprimer toutes les données</div><div class="set-is">Irréversible — remet l\'app à zéro</div></div><div class="set-ctrl"><button class="bd" onclick="nukeAll()">Tout supprimer</button></div></div></div>' +
+    '<div style="text-align:center;padding:20px 16px 12px;color:var(--ink3);font-size:11px">' +
+    '<div style="font-weight:700;color:var(--sage);font-size:13px;margin-bottom:4px">Dépensoo · Bêta publique v1.0</div>' +
+    '<div style="margin-bottom:8px">Vos retours nous aident à améliorer l\'app 🙏</div>' +
+    '<div style="display:flex;justify-content:center;gap:20px">' +
+    '<a href="https://instagram.com/DEPENSOO" style="color:var(--sage);text-decoration:none;font-size:12px">📸 @DEPENSOO</a>' +
+    '<a href="https://tiktok.com/@dpensoo" style="color:var(--sage);text-decoration:none;font-size:12px">🎵 @dpensoo</a>' +
+    '</div></div>';
 }
 function applyInc(){const v=parseFloat((document.getElementById('s-inc')||{value:''}).value);if(isNaN(v)||v<0)return;S.income=v;const el=document.getElementById('inc-input');if(el)el.value=v;saveS();render();toast('Revenu mis à jour ✓');}
 function clearTx(){if(!confirm('Effacer toutes les transactions ?'))return;S.transactions=[];saveS();render();toast('Transactions effacées');}
@@ -2163,6 +2171,9 @@ function rMentions(){
     '<li><strong>Hébergeur de la politique de confidentialité :</strong> GitHub Pages — GitHub, Inc. (filiale de Microsoft Corporation), 88 Colin P Kelly Jr St, San Francisco, CA 94107, États-Unis — <em>pages.github.com</em>. La politique de confidentialité publique est accessible à l\'adresse <a href="https://kerlumys.github.io/depensoo-privacy" style="color:var(--sage)">kerlumys.github.io/depensoo-privacy</a>.</li>' +
     '</ul></div>' +
 
+    '<div class="priv-block"><h3>Réseaux sociaux</h3>' +
+    '<p>Dépensoo est présent sur les réseaux sociaux suivants à titre informatif et communautaire : Instagram (<a href="https://instagram.com/DEPENSOO" style="color:var(--sage)">@DEPENSOO</a>) et TikTok (<a href="https://tiktok.com/@dpensoo" style="color:var(--sage)">@dpensoo</a>). Ces plateformes sont des services tiers indépendants de l\'éditeur, soumis à leurs propres conditions d\'utilisation et politiques de confidentialité. L\'éditeur ne collecte aucune donnée via ces plateformes et décline toute responsabilité quant à leur fonctionnement.</p></div>' +
+
     '<div class="priv-block"><h3>Propriété intellectuelle</h3>' +
     '<p>L\'ensemble du contenu de Dépensoo — code source, design, textes, icônes, algorithmes — est protégé par le <strong>droit d\'auteur français</strong> (articles L.111-1 et suivants du Code de la propriété intellectuelle) et par les conventions internationales sur la propriété intellectuelle.</p>' +
     '<p>Toute reproduction, représentation, modification, diffusion ou exploitation, totale ou partielle, sans autorisation écrite préalable de l\'éditeur, est strictement interdite et constitue une contrefaçon sanctionnée par les articles L.335-2 et suivants du CPI.</p>' +
@@ -2221,6 +2232,9 @@ function rCGU(){
 
     '<div class="priv-block" style="background:var(--sage-l);border:1px solid var(--sage-m)">' +
     '<p style="font-size:12px;color:var(--sage);line-height:1.8"><strong>Résumé en clair :</strong> Dépensoo est une application gratuite, 100 % locale et chiffrée. Aucune donnée ne quitte votre appareil. Le don est facultatif et géré par une plateforme tierce. L\'éditeur est un particulier / développeur indépendant.</p></div>' +
+
+    '<div class="priv-block" style="background:#FFF9E6;border:1px solid #F6E05E">' +
+    '<p style="font-size:12px;line-height:1.8">⚠️ <strong>Version bêta publique :</strong> Cette version est en cours de test public. L\'éditeur ne garantit pas l\'absence de bugs ni la stabilité de l\'application. Vos retours sont les bienvenus sur Instagram (<a href="https://instagram.com/DEPENSOO" style="color:var(--sage)">@DEPENSOO</a>) ou TikTok (<a href="https://tiktok.com/@dpensoo" style="color:var(--sage)">@dpensoo</a>).</p></div>' +
 
     '<div class="priv-block"><h3>1. Objet et champ d\'application</h3>' +
     '<p>Les présentes Conditions Générales d\'Utilisation (CGU) régissent l\'utilisation de l\'application <strong>Dépensoo</strong>, outil de gestion budgétaire personnelle fonctionnant entièrement en local sur l\'appareil de l\'utilisateur, sans serveur ni connexion internet obligatoire.</p>' +
