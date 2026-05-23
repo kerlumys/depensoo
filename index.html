@@ -26,6 +26,7 @@
   --sh:0 1px 3px rgba(0,0,0,.07),0 1px 2px rgba(0,0,0,.04);
   --shm:0 4px 16px rgba(0,0,0,.09);
 }
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.6}
 
 /* ── FULLSCREEN SCREENS (lock/onboarding) ── */
@@ -605,10 +606,10 @@ body.dark .fc{background:#2A5248;}
 
 /* ── PRINT ── */
 @media print{
-  .screen,.toast,.sb-toggle,.sb-overlay,#modal-import,#modal-export,#modal-change-pwd,#ob-imp-modal,#modal-edit-tx{display:none!important;}
-  .app{display:block!important;grid-template-columns:1fr!important;}
-  .sidebar{display:none!important;}
-  .main{padding:0!important;}
+  body > *:not(#modal-pdf-report){ display:none!important; }
+  #modal-pdf-report{ position:static!important; display:block!important; }
+  #modal-pdf-report > div:first-child{ display:none!important; }
+  #pdf-report-content{ padding:0!important; overflow:visible!important; }
 }
 /* ── THÈME 3 ÉTATS ── */
 .theme-3way{display:flex;flex:1;border:1px solid var(--border);border-radius:var(--rsm);overflow:hidden;background:var(--white);}
@@ -1568,9 +1569,14 @@ function rQuickAdd() {
     '<div class="qa-form">' +
     '<div class="qf"><label for="qa-n">Description</label><input type="text" id="qa-n" placeholder="ex: Lidl courses" onkeydown="if(event.key===&apos;Enter&apos;)addTx()"></div>' +
     '<div class="qf"><label for="qa-a">Montant</label><input type="number" id="qa-a" placeholder="0,00" min="0" step="0.01" onkeydown="if(event.key===&apos;Enter&apos;)addTx()"></div>' +
-    '<div class="qf"><label for="qa-c">Catégorie</label><select id="qa-c">' + catOpts() + '</select></div>' +
+    '<div class="qf"><label for="qa-c">Catégorie</label><select id="qa-c" onchange="onQaCatChange()">' + catOpts() + '</select></div>' +
     '<div class="qf"><div style="height:20px"></div><button class="btn-tx" onclick="addTx()">+ Ajouter</button></div>' +
-    '</div><div class="qa-presets">' +
+    '</div>' +
+    '<div id="qa-dispatch-row" style="display:none;align-items:center;gap:8px;margin:-4px 0 8px;padding:8px 12px;background:var(--mint);border-radius:var(--rsm);font-size:13px;color:var(--ink2)">' +
+    '<input type="checkbox" id="qa-dispatch" style="accent-color:var(--sage);width:16px;height:16px;cursor:pointer;flex-shrink:0">' +
+    '<label for="qa-dispatch" style="cursor:pointer">Répartir automatiquement selon la méthode <strong id="qa-method-name"></strong></label>' +
+    '</div>' +
+    '<div class="qa-presets">' +
     buckets().map(function(b) {
       return '<button class="pchip" onclick="fillP(&quot;' + b.key + '&quot;)" style="color:' + b.c + ';border-color:' + colorBg(b.c) + ';background:' + colorBg(b.c) + '">' + esc(b.lbl) + '</button>';
     }).join('') + '</div></div>';
@@ -1761,19 +1767,54 @@ function saveB(){
 // ═══════════════════════════════════════════════════
 // TX ACTIONS
 // ═══════════════════════════════════════════════════
-function catOpts(){return buckets().map(function(b){return '<option value="'+b.key+'">'+esc(b.lbl)+'</option>';}).join('');}
+function catOpts(){return '<option value="__income__">💵 Revenu</option>'+buckets().map(function(b){return '<option value="'+b.key+'">'+esc(b.lbl)+'</option>';}).join('');}
 function fillP(cat){const c=document.getElementById('qa-c');if(c){c.value=cat;const n=document.getElementById('qa-n');if(n)n.focus();}}
+function onQaCatChange(){
+  var cat=(document.getElementById('qa-c')||{}).value;
+  var row=document.getElementById('qa-dispatch-row');
+  var lbl=document.getElementById('qa-method-name');
+  if(!row)return;
+  if(cat==='__income__'){
+    row.style.display='flex';
+    if(lbl && S) lbl.textContent=MM[S.method]?MM[S.method].name:'';
+  } else {
+    row.style.display='none';
+  }
+}
 function addTx(){
   const name=(document.getElementById('qa-n')||{value:''}).value.trim();
   const amount=parseFloat(((document.getElementById('qa-a')||{value:''}).value).replace(',','.'));
   const cat=(document.getElementById('qa-c')||{value:''}).value||buckets()[0].key;
+  const dispatch=(document.getElementById('qa-dispatch')||{}).checked;
   const date=new Date().toISOString().slice(0,10);
   if(!name){toast('⚠ Description requise');return;}
   if(!(amount>0)){toast('⚠ Montant invalide');return;}
-  S.transactions.push({id:uid(),name:name,amount:amount,cat:cat,date:date,type:'expense'});
+  if(cat==='__income__'){
+    // Ajouter comme revenu
+    S.transactions.push({id:uid(),name:name,amount:amount,cat:buckets()[0].key,date:date,type:'income'});
+    if(dispatch){
+      // Répartir selon les pourcentages de la méthode active
+      buckets().forEach(function(b){
+        var alloc=Math.round(amount*b.pct)/100;
+        if(alloc>0) S.transactions.push({id:uid(),name:'Budget '+b.lbl+' ('+name+')',amount:alloc,cat:b.key,date:date,type:'expense'});
+      });
+      toast('💵 '+fmt(amount)+' réparti selon '+MM[S.method].name+' ✓');
+    } else {
+      toast('💵 Revenu '+fmt(amount)+' enregistré ✓');
+    }
+  } else {
+    S.transactions.push({id:uid(),name:name,amount:amount,cat:cat,date:date,type:'expense'});
+    toast(name+' — '+fmt(amount)+' ajouté ✓');
+  }
   saveS();
-  setTimeout(function(){const n=document.getElementById('qa-n'),a=document.getElementById('qa-a');if(n){n.value='';n.focus();}if(a)a.value='';},50);
-  render();toast(name+' — '+fmt(amount)+' ajouté ✓');
+  setTimeout(function(){
+    var n=document.getElementById('qa-n'),a=document.getElementById('qa-a'),c=document.getElementById('qa-c'),d=document.getElementById('qa-dispatch');
+    if(n){n.value='';n.focus();}if(a)a.value='';
+    if(c)c.value=buckets()[0].key;
+    if(d)d.checked=false;
+    onQaCatChange();
+  },50);
+  render();
 }
 function addRevenu(){
   const name=prompt('Description du revenu :','Salaire');if(!name)return;
@@ -2114,7 +2155,7 @@ function rMentions(){
     '<li><strong>Délai de réponse (art. 12.3 RGPD) :</strong> Toute demande d\'exercice de droits adressée par e-mail recevra une réponse dans un délai d\'<strong>un mois</strong>. L\'Application fonctionnant en mode 100 % local et chiffré, l\'éditeur ne détient aucune de vos données et ne peut agir à votre place — sa réponse vous guidera vers les outils disponibles directement dans l\'Application (accès, effacement, export).</li>' +
     '<li><strong>Politique de confidentialité :</strong> <a href="https://kerlumys.github.io/depensoo-privacy" style="color:var(--sage)">kerlumys.github.io/depensoo-privacy</a></li>' +
     '</ul>' +
-    '<p style="font-size:11px;color:var(--ink3);margin-top:8px;line-height:1.7">Conformément à l\'art. 1-1 de la loi n° 2004-575 (LCEN), l\'édition de l\'application Dépensoo est assurée par un particulier non professionnel sous couvert d\'anonymat légal. L\'application est accessible sous forme de Progressive Web App (PWA) hébergée sur GitHub Pages (GitHub, Inc., San Francisco, USA).</p></div>' +
+    '<p style="font-size:11px;color:var(--ink3);margin-top:8px;line-height:1.7">Conformément à l\'art. 1-1 de la loi n° 2004-575 (LCEN), l\'édition de l\'application Dépensoo est assurée par un particulier non professionnel sous couvert d\'anonymat légal. Dépensoo est disponible en deux versions : <strong>PWA iPhone/iPad</strong> via <a href="https://kerlumys.github.io/depensoo/" style="color:var(--sage)">kerlumys.github.io/depensoo/</a> (GitHub Pages, GitHub Inc., USA) et <strong>Android</strong> via Google Play Store (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland).</p></div>' +
 
     '<div class="priv-block"><h3>Distribution & hébergement</h3>' +
     '<ul>' +
@@ -4009,9 +4050,23 @@ function expPDF(){
     '<table><thead><tr><th>Date</th><th>Description</th><th>Catégorie</th><th style="text-align:right">Montant</th></tr></thead><tbody>'+rows+'</tbody></table>'+
     '<div class="footer">Dépensoo · Budget local chiffré · Aucune donnée transmise · '+new Date().toISOString()+'</div>'+
     '</body></html>';
-  var w=window.open('','_blank');
-  if(w){w.document.write(html);w.document.close();setTimeout(function(){w.print();},400);}
-  else{dl('depensoo_rapport_'+key+'.html',html,'text/html;charset=utf-8');toast('Rapport HTML téléchargé ✓');}
+  // Extraire uniquement le contenu <body> pour l'injecter dans la modale
+  var bodyMatch = html.match(/<body>([\s\S]*)<\/body>/);
+  var bodyContent = bodyMatch ? bodyMatch[1] : html;
+  var modal = document.getElementById('modal-pdf-report');
+  var content = document.getElementById('pdf-report-content');
+  if(modal && content){
+    content.innerHTML = bodyContent;
+    modal.style.display = 'flex';
+    window.scrollTo(0,0);
+  } else {
+    dl('depensoo_rapport_'+key+'.html',html,'text/html;charset=utf-8');
+    toast('Rapport HTML téléchargé ✓');
+  }
+}
+function closePDFModal(){
+  var modal = document.getElementById('modal-pdf-report');
+  if(modal) modal.style.display = 'none';
 }
 
 // Ajouter le bouton PDF dans rSettings + indicateur quota localStorage
@@ -4111,6 +4166,7 @@ window.closeWatchModal     = closeWatchModal;
 window.saveWatch           = saveWatch;
 window.delWatch            = delWatch;
 window.expPDF              = expPDF;
+window.closePDFModal       = closePDFModal;
 window.chgCalM             = chgCalM;
 window.calDayClick         = calDayClick;
 // Thème et revenu
@@ -4455,5 +4511,17 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+
+<!-- Modale rapport PDF -->
+<div id="modal-pdf-report" style="display:none;position:fixed;inset:0;z-index:9000;background:#fff;flex-direction:column">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid #E2E8F0;background:#fff;position:sticky;top:0;z-index:1;gap:10px">
+    <span style="font-family:Georgia,serif;font-size:17px;color:#5C7A6E;font-weight:700">Rapport mensuel</span>
+    <div style="display:flex;gap:8px">
+      <button onclick="window.print()" style="padding:8px 14px;background:#5C7A6E;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">🖨️ Imprimer / PDF</button>
+      <button onclick="closePDFModal()" style="padding:8px 14px;background:#EDF2F7;color:#2D3748;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">✕ Fermer</button>
+    </div>
+  </div>
+  <div id="pdf-report-content" style="flex:1;overflow-y:auto;padding:24px 18px;max-width:700px;margin:0 auto;width:100%"></div>
+</div>
 </body>
 </html>
