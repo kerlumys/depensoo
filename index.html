@@ -1108,7 +1108,8 @@ input, select, textarea { font-size: 16px !important; }
   <div style="padding:10px 16px;border-top:1px solid var(--border)">
     <a href="https://fr.tipeee.com/depensoo/" target="_blank" rel="noopener noreferrer" title="Lien externe — Tipeee"
       style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:9px;background:#FFDD00;border-radius:var(--rsm);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;color:#000;text-decoration:none;transition:opacity .15s"
-      onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+      onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'"
+      onclick="return confirmTipeeeLink(event)">
       ☕ Soutenir Dépensoo — Don libre
     </a>
     <div style="font-size:10px;color:var(--ink3);text-align:center;margin-top:5px">100% gratuit · Don facultatif</div>
@@ -1303,6 +1304,22 @@ const CGU_VERSION = '1.4'; // Incrémenter à chaque mise à jour des CGU (décl
 // Mettre à true si la mise à jour est "substantielle" au sens de CGU art. 9 (droits RGPD, conditions d'accès,
 // étendue des données, conditions financières). Un re-consentement explicite bloquant sera alors requis.
 const CGU_IS_MAJOR_UPDATE = false;
+
+// ── Lien externe Tipeee (don facultatif) — fenêtre d'avertissement obligatoire
+// avant toute redirection, conformément à la politique de confidentialité et aux CGU.
+function confirmTipeeeLink(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  var ok = window.confirm(
+    "Vous allez quitter Dépensoo pour accéder à Tipeee (fr.tipeee.com), un site tiers indépendant, " +
+    "afin d'effectuer un don facultatif. Dépensoo ne transmet aucune donnée à Tipeee et ne reçoit aucune " +
+    "donnée bancaire ou personnelle en retour. Tipeee dispose de sa propre politique de confidentialité.\n\n" +
+    "Continuer vers Tipeee ?"
+  );
+  if (ok) {
+    window.open("https://fr.tipeee.com/depensoo/", "_blank", "noopener,noreferrer");
+  }
+  return false;
+}
 
 // ── Détection du bridge React Native ────────────────────────────────────────
 var _IS_RN = (function() {
