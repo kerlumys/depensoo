@@ -1307,6 +1307,10 @@ const CGU_IS_MAJOR_UPDATE = false;
 
 // ── Lien externe Tipeee (don facultatif) — fenêtre d'avertissement obligatoire
 // avant toute redirection, conformément à la politique de confidentialité et aux CGU.
+// NB: window.open() est sans effet dans la WebView Android native (aucun onCreateWindow
+// configuré côté App.js) → en contexte app, on redirige via window.location.href, qui est
+// intercepté par handleShouldStartLoad (App.js) et ouvert dans le navigateur système,
+// exactement comme tous les autres liens externes de l'application.
 function confirmTipeeeLink(e) {
   if (e && e.preventDefault) e.preventDefault();
   var ok = window.confirm(
@@ -1316,7 +1320,12 @@ function confirmTipeeeLink(e) {
     "Continuer vers Tipeee ?"
   );
   if (ok) {
-    window.open("https://fr.tipeee.com/depensoo/", "_blank", "noopener,noreferrer");
+    var url = "https://fr.tipeee.com/depensoo/";
+    if (typeof window.ReactNativeWebView !== 'undefined') {
+      window.location.href = url;
+    } else {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
   }
   return false;
 }
@@ -2044,7 +2053,7 @@ function rPrivacy(){
     '<li><strong>Art. 13 :</strong> Informations fournies ici-même à l\'installation (transparence)</li>' +
     '<li><strong>Responsable de traitement :</strong> Vous-même — données exclusivement locales</li>' +
     '<li><strong>Durée de conservation :</strong> Jusqu\'à suppression par l\'utilisateur</li>' +
-    '<li><strong>Transferts hors UE :</strong> Aucun · <strong>Sous-traitants :</strong> Aucun — données exclusivement locales. Hébergeur de la politique de confidentialité publique : GitHub Pages (GitHub Inc., San Francisco, USA) — aucune donnée personnelle de l\'application ne lui est transmise.</li>' +
+    '<li><strong>Transferts hors UE :</strong> Aucune donnée budgétaire ou personnelle issue de l\'application n\'est transférée — uniquement votre adresse IP, traitée techniquement par l\'hébergeur GitHub Pages (GitHub Inc., USA) pour servir cette page, sur la base du EU-US Data Privacy Framework (certification active). <strong>Sous-traitants :</strong> Aucun pour les données applicatives.</li>' +
     '</ul></div>' +
     '<div class="priv-block"><h3>Registre des traitements (art. 30 RGPD)</h3>' +
     '<div style="overflow-x:auto">' +
@@ -4373,7 +4382,7 @@ function impBuildStep2() {
   var h = _imp.headers;
   function mkSel(id, selected) {
     var opts = '<option value="-1">— Non utilisé —</option>' +
-      h.map(function(lbl, i) { return '<option value="' + i + '"' + (i === selected ? ' selected' : '') + '>' + lbl + '</option>'; }).join('');
+      h.map(function(lbl, i) { return '<option value="' + i + '"' + (i === selected ? ' selected' : '') + '>' + sanitizeHtml(lbl) + '</option>'; }).join('');
     return '<select class="imp-map-sel" id="' + id + '">' + opts + '</select>';
   }
   var rows = [
@@ -4388,10 +4397,11 @@ function impBuildStep2() {
     return '<div class="imp-map-row"><span class="imp-map-lbl">' + r.lbl + '</span>' + mkSel(r.id, r.val) + auto + '</div>';
   }).join('');
   document.getElementById('imp-map-rows').innerHTML = html;
-  // Tableau de prévisualisation
-  var prev = '<table class="imp-preview"><thead><tr>' + h.map(function(c) { return '<th>' + c + '</th>'; }).join('') + '</tr></thead><tbody>';
+  // Tableau de prévisualisation — sanitiser : ces valeurs proviennent d'un fichier importé
+  // (CSV/Excel non maîtrisé par l'éditeur) et sont injectées via innerHTML.
+  var prev = '<table class="imp-preview"><thead><tr>' + h.map(function(c) { return '<th>' + sanitizeHtml(c) + '</th>'; }).join('') + '</tr></thead><tbody>';
   _imp.raw.slice(0, 4).forEach(function(row) {
-    prev += '<tr>' + h.map(function(_, i) { return '<td>' + (row[i] != null ? row[i] : '') + '</td>'; }).join('') + '</tr>';
+    prev += '<tr>' + h.map(function(_, i) { return '<td>' + sanitizeHtml(row[i] != null ? row[i] : '') + '</td>'; }).join('') + '</tr>';
   });
   prev += '</tbody></table>';
   document.getElementById('imp-preview-tbl').innerHTML = prev;
