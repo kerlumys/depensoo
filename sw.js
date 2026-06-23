@@ -1,7 +1,7 @@
 // Service Worker — Dépensoo PWA
 // Stratégie : Cache-first — l'app fonctionne 100% hors ligne après la première visite
 
-const CACHE_NAME = 'depensoo-v1';
+const CACHE_NAME = 'depensoo-v2'; // v2 : ajout SheetJS inliné (import Excel/ODS) — bump pour forcer le rechargement du cache PWA
 const ASSETS = [
   './',
   './index.html',
